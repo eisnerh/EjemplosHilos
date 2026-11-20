@@ -28,3 +28,11 @@ Inventario y compilaciones locales del 2026-11-15. Una compilación correcta no 
 
 `.gitignore` excluye credenciales locales, estado del editor y salidas de las herramientas detectadas. No deja de versionar archivos que ya estaban en Git. Los manifiestos, archivos de bloqueo, recursos fuente y scripts de esquema forman parte del código.
 <!-- local-development:end -->
+
+<!-- improvements-20261119:start -->
+## Mejoras y verificación — 2026-11-19 (Renderizado thread-safe con doble búfer y cancelación limpia)
+
+- Eliminadas llamadas inseguras `CreateGraphics()` desde hilos secundarios, fugas de `Pen` (GDI) y condición de carrera sobre `Random` compartido.
+- Implementado `ShapeCanvasState` thread-safe con dibujo `DoubleBuffered` en `OnPaint` (`SmoothingMode.AntiAlias`), `CancellationTokenSource` en `OnFormClosing` y bloqueo de botones activos.
+- Validación: compilación MSBuild y 4 aserciones concurrentes (200 figuras acotadas generadas en paralelo + cancelación inmediata).
+<!-- improvements-20261119:end -->
